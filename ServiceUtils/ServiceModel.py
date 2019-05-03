@@ -1,19 +1,25 @@
 from nameko.rpc import rpc
 from rest_framework import serializers
+from rest_framework.viewsets import ModelViewSet
 
 
-class RPCServiceModelBase(type):
+class ServiceModelBase(type):
     def __new__(cls, *args, **kwargs):
         new_class = super().__new__(cls, *args, **kwargs)
         if hasattr(new_class, "__dependence__"):
             __serializer__ = type("Serializer", (serializers.ModelSerializer,), {"Meta": type})
             __serializer_meta__ = type("Meta", (), {"model": new_class.__dependence__, "fields": "__all__"})
             __serializer__.Meta = __serializer_meta__
-            setattr(new_class, "__serializer__", __serializer__)
+            setattr(new_class, "serializer_class", __serializer__)
+            setattr(new_class, "queryset", new_class.__dependence__.objects.all())
         return new_class
 
 
-class RPCServiceModel(metaclass=RPCServiceModelBase):
+class HttpServiceModel(ModelViewSet, metaclass=ServiceModelBase):
+    pass
+
+
+class RPCServiceModel(metaclass=ServiceModelBase):
     name = "RPCServiceModel"
 
     def get_objects(self):
@@ -25,27 +31,27 @@ class RPCServiceModel(metaclass=RPCServiceModelBase):
 
     @rpc
     def get(self, *args, **kwargs):
-        return self.__serializer__(self.get_objects().get(*args, **kwargs)).data
+        return self.serializer_class(self.get_objects().get(*args, **kwargs)).data
 
     @rpc
     def create(self, **kwargs):
-        return self.__serializer__(self.get_objects().create(**kwargs)).data
+        return self.serializer_class(self.get_objects().create(**kwargs)).data
 
     @rpc
     def earliest(self, *fields, field_name=None):
-        return self.__serializer__(self.get_objects().earliest(*fields, field_name=field_name)).data
+        return self.serializer_class(self.get_objects().earliest(*fields, field_name=field_name)).data
 
     @rpc
     def latest(self, *fields, field_name=None):
-        return self.__serializer__(self.get_objects().latest(*fields, field_name=field_name)).data
+        return self.serializer_class(self.get_objects().latest(*fields, field_name=field_name)).data
 
     @rpc
     def first(self):
-        return self.__serializer__(self.get_objects().first()).data
+        return self.serializer_class(self.get_objects().first()).data
 
     @rpc
     def last(self):
-        return self.__serializer__(self.get_objects().last()).data
+        return self.serializer_class(self.get_objects().last()).data
 
     @rpc
     def delete(self, *args, **kwargs):
@@ -73,17 +79,17 @@ class RPCServiceModel(metaclass=RPCServiceModelBase):
 
     @rpc
     def none(self):
-        return self.__serializer__(self.get_objects().none(), many=True).data
+        return self.serializer_class(self.get_objects().none(), many=True).data
 
     @rpc
     def all(self):
         result = self.get_objects().all()
-        return self.__serializer__(result, many=True).data
+        return self.serializer_class(result, many=True).data
 
     @rpc
     def filter(self, *args, **kwargs):
-        return self.__serializer__(self.get_objects().filter(*args, **kwargs), many=True).data
+        return self.serializer_class(self.get_objects().filter(*args, **kwargs), many=True).data
 
     @rpc
     def exclude(self, *args, **kwargs):
-        return self.__serializer__(self.get_objects().exclude(*args, **kwargs), many=True).data
+        return self.serializer_class(self.get_objects().exclude(*args, **kwargs), many=True).data

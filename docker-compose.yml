@@ -1,0 +1,41 @@
+version: "2"
+services:
+  rabbit:
+    container_name: Easy_Rabbitmq
+    image: rabbitmq:3.6-management
+    ports:
+        - "15673:15672"
+    restart: always
+
+  postgres_user:
+    container_name: Easy_Postgres_User
+    image: postgres
+    ports:
+        - "5433:5432"
+    environment:
+        POSTGRES_DB: "Easy_Database_User"
+        POSTGRES_PASSWORD: "postgres"
+        POSTGRES_USER: "postgres"
+    restart: always
+
+  easy_database_user:
+    container_name: Easy_Database_User
+    build: .
+    depends_on:
+      - rabbit
+      - postgres_user
+    ports:
+        - "8001:8000"
+    links:
+      - "rabbit:Easy_Rabbitmq"
+      - "postgres_user:Easy_Postgres_User"
+    environment:
+        DB_PASSWORD: "postgres"
+        DB_USER: "postgres"
+        DB_HOST: "postgres"
+        DB_NAME: "Easy_Database_User"
+        RABBIT_PASSWORD: "guest"
+        RABBIT_USER: "guest"
+        RABBIT_HOST: "rabbit"
+        RABBIT_PORT: "5672"
+        RABBIT_MANAGEMENT_PORT: "15672"

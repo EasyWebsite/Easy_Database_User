@@ -35,7 +35,7 @@ class User(models.Model):
     email = models.EmailField(verbose_name='电子邮箱', null=True, blank=True)
     qq = models.CharField(verbose_name='QQ', max_length=20, null=True, blank=True)
     from User.country_and_region_choices import country_and_region_choices
-    country_and_region = models.CharField(verbose_name='国家或地区', max_length=3, choices=country_and_region_choices, default='CN')
+    country_and_region = models.CharField(verbose_name='国家或地区', max_length=3, choices=country_and_region_choices, default='CN中国')
     creator = models.ForeignKey('self', on_delete=models.SET_NULL, verbose_name='用户创建者', null=True, blank=True)
     personal_page = models.CharField(verbose_name='个人主页', max_length=50, null=True, blank=True)
     marriage = models.BooleanField(verbose_name='婚否', null=True, blank=True)
@@ -180,14 +180,14 @@ class Undergraduate(models.Model):
         verbose_name_plural = '本科生列表'
 
 
-class Graduate_Manager(models.Manager):
+class Postgraduate_Manager(models.Manager):
     pass
 
 
-class Graduate(models.Model):
+class Postgraduate(models.Model):
     student = models.OneToOneField(Student, on_delete=models.CASCADE)
     tutor = models.ForeignKey(Teacher, verbose_name='导师', on_delete=models.CASCADE)
-    objects = Graduate_Manager()
+    objects = Postgraduate_Manager()
 
     def __str__(self):
         return str(self.student)

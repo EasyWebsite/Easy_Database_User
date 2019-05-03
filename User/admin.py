@@ -57,8 +57,8 @@ class StudentCategoryAdmin(admin.ModelAdmin):
     list_display = ('student',)
 
 
-@admin.register(Graduate)
-class StudentCategoryAdmin(admin.ModelAdmin):
+@admin.register(Postgraduate)
+class PostgraduateAdmin(admin.ModelAdmin):
     list_display = ('student', 'tutor')
 
 

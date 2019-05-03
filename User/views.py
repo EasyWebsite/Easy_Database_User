@@ -1,69 +1,50 @@
-import Easy_Database_User.urls
 from User.models import *
-from ServiceUtils.rpc import RPCServiceModel
+from ServiceUtils.ServiceModel import HttpServiceModel
 
 
-class AccountService(RPCServiceModel):
-    name = "Account"
+class AccountService(HttpServiceModel):
     __dependence__ = Account
 
 
-class UserService(RPCServiceModel):
-    name = "User"
+class UserService(HttpServiceModel):
     __dependence__ = User
 
 
-class FacultyService(RPCServiceModel):
-    name = "Faculty"
+class FacultyService(HttpServiceModel):
     __dependence__ = Faculty
 
 
-class TeacherService(RPCServiceModel):
-    name = "Teacher"
+class TeacherService(HttpServiceModel):
     __dependence__ = Teacher
 
 
-class StudentGradeService(RPCServiceModel):
-    name = "Student_Grade"
+class StudentGradeService(HttpServiceModel):
     __dependence__ = Student_Grade
 
 
-class MajorService(RPCServiceModel):
-    name = "Major"
+class MajorService(HttpServiceModel):
     __dependence__ = Major
 
 
-class CampusService(RPCServiceModel):
-    name = "Campus"
+class CampusService(HttpServiceModel):
     __dependence__ = Campus
 
 
-class StudentClassService(RPCServiceModel):
-    name = "Student_Class"
+class StudentClassService(HttpServiceModel):
     __dependence__ = Student_Class
 
 
-class StudentCategoryService(RPCServiceModel):
-    name = "Student_Category"
+class StudentCategoryService(HttpServiceModel):
     __dependence__ = Student_Category
 
 
-class StudentService(RPCServiceModel):
-    name = "Student"
+class StudentService(HttpServiceModel):
     __dependence__ = Student
 
 
-class UndergraduateService(RPCServiceModel):
-    name = "Undergraduate"
+class UndergraduateService(HttpServiceModel):
     __dependence__ = Undergraduate
 
 
-class GraduateService(RPCServiceModel):
-    name = "Graduate"
-    __dependence__ = Graduate
-
-
-if __name__ == '__main__':
-    import os
-
-    os.system("nameko run views")
+class GraduateService(HttpServiceModel):
+    __dependence__ = Postgraduate
