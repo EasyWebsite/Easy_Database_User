@@ -39,3 +39,6 @@ services:
         RABBIT_HOST: "rabbit"
         RABBIT_PORT: "5672"
         RABBIT_MANAGEMENT_PORT: "15672"
+        DJANGO_ADMIN_USERNAME: "root"
+        DJANGO_ADMIN_PASSWORD: "admin123"
+        DJANGO_ADMIN_USEREMAIL: "r@r.com"
