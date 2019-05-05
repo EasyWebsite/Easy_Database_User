@@ -34,7 +34,7 @@
             </tr>
           </thead>
           <tbody class="list">
-            {% for app in app_list %}{% if app.name != 'Easy MicroService' %}
+            {% for app in app_list %}
               {% cycle ' bg-colored' '' as rowcolors silent %}
               {% for model in app.models %}
                 <tr class="app-{{ app.app_label }}{{ rowcolors }}">
@@ -60,7 +60,7 @@
                 </td>
               </tr>
               {% endfor %}
-            {% endif %}{% endfor %}
+            {% endfor %}
         </tbody>
     </table>
 </div>

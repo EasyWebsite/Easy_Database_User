@@ -1,6 +1,6 @@
 {% load i18n %}
 {% if app_list %}
-    {% for app in app_list %}{% if app.name != 'Easy MicroService' %}
+    {% for app in app_list %}
     <ul class="nav nav-sidebar app-{{ app.app_label }} module{% if app.app_url in current_url %} has-active-menu show-models{% endif %}">
         <li {% if app.app_url == current_url %} class="active"{% endif %}>
         <a href="{{ app.app_url }}" class="section" title="{% blocktrans with name=app.name %}Models in the {{ name }} application{% endblocktrans %}">
@@ -13,7 +13,7 @@
         </li>
         {% endfor %}
     </ul>
-    {% endif %}{% endfor %}
+    {% endfor %}
 {% else %}
     <p class="permission-warning">{% trans "You don't have permission to edit anything." %}</p>
 {% endif %}

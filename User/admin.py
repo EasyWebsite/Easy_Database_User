@@ -62,5 +62,5 @@ class PostgraduateAdmin(admin.ModelAdmin):
     list_display = ('student', 'tutor')
 
 
-admin.site.site_header = "Easy MicroService for Database"
-admin.site.site_title = "Easy Django MicroService for Database"
+admin.site.site_header = "Easy Database | User"
+admin.site.site_title = "Easy Database"

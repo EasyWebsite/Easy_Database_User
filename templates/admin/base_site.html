@@ -5,6 +5,7 @@
     <div style="text-align: center">
         <a href="{% url 'admin:index' %}" style="text-decoration:none;">
             <h1 style="color: white">Easy Admin</h1>
+            <p style="color: white">{{ site_header|default:_('Django administration') }}</p>
         </a>
     </div>
 {% endblock branding %}

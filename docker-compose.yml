@@ -34,6 +34,7 @@ services:
         DB_USER: "postgres"
         DB_HOST: "postgres"
         DB_NAME: "Easy_Database_User"
+        DB_PORT: 5432
         RABBIT_PASSWORD: "guest"
         RABBIT_USER: "guest"
         RABBIT_HOST: "rabbit"
